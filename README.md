@@ -1,0 +1,2 @@
+# solaSMP
+minecraft server id
