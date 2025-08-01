@@ -1,0 +1,385 @@
+/* Umum */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #1a1a1a, #2d2d2d);
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Logo Minecraft */
+.logo {
+  width: 200px;
+  margin-top: 40px;
+  filter: drop-shadow(0 0 10px #00ffcc);
+}
+
+/* Nama server dengan animasi glow */
+.server-name {
+  font-size: 3em;
+  color: #00ff00;
+  text-shadow: 2px 2px #000;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #0f0; }
+  to { text-shadow: 0 0 20px #0f0; }
+}
+
+/* Deskripsi server */
+.server-description {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  color: #ccc;
+}
+
+/* Tombol Salin IP */
+.copy-btn {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background-color: #666;
+}
+
+/* Join Discord dan Login/Register */
+.top-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#authButtons button {
+  background-color: #00aa00;
+}
+
+#authButtons button:hover {
+  background-color: #007700;
+}
+
+#profile {
+  background-color: #222;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 0.95em;
+}
+
+/* Tombol Umum */
+button {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0088cc;
+}
+
+/* Container utama */
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Untuk halaman profil */
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Efek animasi muncul */
+.animated {
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+/* Footer */
+footer {
+  margin-top: 60px;
+  padding: 10px;
+  font-size: 0.9em;
+  background-color: #111;
+  color: #aaa;
+  text-align: center;
+}
+
+/* Responsive untuk HP */
+@media (max-width: 600px) {
+  .top-right {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .logo {
+    width: 160px;
+  }
+
+  .server-name {
+    font-size: 2.2em;
+  }
+
+  .copy-btn {
+    width: 100%;
+    height: 0%;
+  }
+}
+.auth-container {
+  background-color: #2d2d2d;
+  padding: 30px;
+  margin: 80px auto;
+  max-width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #00ff00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  background-color: #444;
+  color: white;
+}
+
+.auth-container input:focus {
+  outline: none;
+  background-color: #555;
+}
+.profile-actions button {
+  margin: 8px;
+  padding: 10px 18px;
+  font-size: 16px;
+}
+
+.auth-container button {
+  background-color: #00aa00;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.auth-container button:hover {
+  background-color: #008800;
+}
+
+.auth-container a {
+  color: #00ffcc;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.cancel-btn {
+  background-color: #aa0000 !important;
+  margin-top: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: #cc0000 !important;
+}
+.rules-section {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ff00;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rules-section h2 {
+  color: #00ff00;
+  text-shadow: 1px 1px #000;
+  margin-bottom: 12px;
+}
+
+.rules-list {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+}
+
+.rules-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #444;
+  font-size: 1em;
+}
+
+.rules-list li:last-child {
+  border-bottom: none;
+}
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 1001;
+  color: white;
+  background-color: #222;
+  padding: 6px 12px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #00ff00;
+  transition: background 0.3s;
+}
+
+.menu-toggle:hover {
+  background-color: #333;
+}
+
+.side-menu {
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  background-color: #1f1f1f;
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ff00;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.side-menu a:hover {
+  color: #00ff00;
+}a
+.navbar {
+  display: flex;
+  background: #333;
+  padding: 10px 20px;
+  justify-content: space-around;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.navbar a.active, .navbar a:hover {
+  background: #555;
+  border-radius: 8px;
+}
+
+.container.setting-page {
+  max-width: 500px;
+  margin: 40px auto;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #0003;
+}
+
+.setting-group {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-group label {
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.setting-group select,
+.setting-group input[type="checkbox"] {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.setting-option {
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+input {
+  padding: 6px;
+  border-radius: 4px;
+  border: none;
+  margin-left: 10px;
+}
+.reset-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background-color: #c0392b;
+}
+/* ===== Halaman Rules ===== */
+.rules-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+  text-align: left;
+}
+
+.rules-container h1 {
+  font-size: 2em;
+  color: #00ffcc;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.rules-container ul {
+  list-style-type: decimal;
+  padding-left: 20px;
+  line-height: 1.8;
+  color: #ddd;
+}
+
+.rules-container li {
+  margin-bottom: 10px;
+}

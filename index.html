@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>solaSMP Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="playSound(); animatePage(); checkLogin();">
+  <audio id="joinSound" src="i.mp3" preload="auto"></audio>
+  <!-- Menu Hamburger -->
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<!-- Side Menu -->
+<div id="sideMenu" class="side-menu">
+  <a href="profile.html">👤profile</a>
+  <a href="index.html">🏠 Beranda</a>
+  <a href="setting.html">⚙️setting</a>
+  <a href="https://discord.gg/WhApJpnZ" target="_blank">💬 Discord</a>
+</div>
+
+  <!-- Join Discord + Login/Profile -->
+  <div class="top-right">
+    <button onclick="joinDiscord()">Join Discord</button>
+    
+    <div id="profile" style="display: none;"></div>
+    <div id="authButtons">
+      <a href="login.html"><button>Login</button></a>
+      <a href="register.html"><button>Register</button></a>
+    </div>
+  </div>
+
+  <!-- Profile Greeting (Atas Logo) -->
+  <div id="profileName" class="animated" style="margin-top: 20px;"></div>
+
+  <!-- Logo dan Nama Server -->
+  <div class="container" id="mainContent">
+    <img src="minecraft-logo.png" alt="Minecraft Logo" class="logo animated" />
+    <h1 class="server-name animated">🔥 solaSMP 🔥</h1>
+    <p class="server-description animated">
+      🌍 Survival indonesia | on 24/7 | Versi 1.21+
+      <p class="server-description animated">Java & Bedrock</p>
+    </p>
+    <section class="rules-section animated">
+      <h1>🎮tentang server🎮</h1>
+      <ul class="rules-list">
+        <li>server survival asik</li>
+        <li>server survival ramah</li>
+        <li>server Minecraft indonesia</li>
+        <li>mabar bareng temen</li>
+      </ul>
+    </section>
+    <section class="rules-section animated">
+  <h2>📜 Rules Server solaSMP</h2>
+  <ul class="rules-list">
+    <li>❌ Dilarang Griefing / Merusak Bangunan Orang</li>
+    <li>❌ Jangan Menggunakan x-ray</li>
+    <li>✅ Saling Hormat & Tidak Toxic</li>
+    <li>✅ Gunakan Bahasa yang Sopan</li>
+    <li>📢 Laporkan Pelanggaran ke Admin</li>
+    <li>❌no spam chat/command</li>
+  </ul>
+</section>
+<section class="rules-section animated">
+  <h2>Fitur-Fitur server</h2>
+  <ul class="rules-list">
+    <li>voice chat(comming soon)</li>
+    <li>falling tree</li>
+    <li>vein miner</li>
+  </ul>
+</section>
+
+    <!-- Tombol Salin IP -->
+    <button onclick="copyIP()" class="copy-btn animated">
+      IP address: play.solaSMP.mc
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

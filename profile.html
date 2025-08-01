@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profil Pengguna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="checkProfileAccess(); playSound(); animatePage();">
+  <audio id="joinSound" src="i.mp3" preload="auto"></audio>
+
+  <div class="container animated centered">
+    <h1>👤Profile</h1>
+    <p id="usernameInfo">Memuat...</p>
+
+    <div class="profile-actions">
+      <a href="index.html"><button>🏠 Beranda</button></a>
+      <a href="setting.html"><button>⚙️ Pengaturan</button></a>
+      <button onclick="logout()">🔓 Logout</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
