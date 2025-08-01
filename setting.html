@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pengaturan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="light">
+
+  <div class="navbar">
+    <a href="index.html" class="logo">🏠 Beranda</a>
+    <a href="profile.html">👤 Profil</a>
+    <a href="setting.html" class="active">⚙️ Setting</a>
+    <a href="#" onclick="logout()">🚪 Logout</a>
+  </div>
+
+  <div class="container setting-page">
+    <h1>⚙️ Pengaturan</h1>
+
+    <div class="setting-group">
+      <label for="theme-select">Tema Website</label>
+      <select id="theme-select" onchange="changeTheme()">
+        <option value="light">Terang</option>
+        <option value="dark">Gelap</option>
+      </select>
+    </div>
+
+    <div class="setting-group">
+      <label for="sound-toggle">Suara Masuk</label>
+      <input type="checkbox" onclick="playsound()" id="joinsound()">
+    </div>
+
+    <div class="setting-group">
+      <button onclick="resetAccount()" class="reset-btn">🔁 Reset Akun</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
