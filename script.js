@@ -35,7 +35,7 @@ function login() {
     localStorage.setItem("loggedInUser", username);
     window.location.href = "index.html";
   } else {
-    alert("Username atau password salah!");
+    alert("Username, Email atau password salah!");
   }
 }
 
