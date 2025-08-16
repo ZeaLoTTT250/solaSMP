@@ -17,30 +17,30 @@
   <a href="setting.html">⚙️setting</a>
   <a href="https://discord.gg/QgHj8gBG" target="_blank">💬 Discord</a>
 </div>  
-    <h1 class="server-name animated">🔥 solaSMP 🔥</h1>
-  <div class="container animated centered">
-    <h1>👤Profile</h1>
-    <p id="usernameInfo">Memuat...</p>
-
-    <div class="profile-actions">
-      <a href="index.html"><button>🏠 Beranda</button></a>
-      <a href="setting.html"><button>⚙️ Pengaturan</button></a>
-      <button onclick="logout()">🔓 Logout</button>
+  
+    <div class="container profile-box neon-green">
+    <!-- Logo dan Nama Server -->
+    <div class="logo-box">
+      <img src="minecraft-logo.png" alt="SolaSMP Logo" class="server-logo">
+      <h1 class="server-name">🔥 SolaSMP 🔥</h1>
     </div>
-  </div>
+  
+  <div class="container animated centered">
+          <h2>👤 Profil Kamu</h2>
+    <p id="profileInfo"></p>
 
-  <h1>🔐 Ubah Akun</h1>
-<div class="setting-option">
-  <label>Password Lama: <input type="password" id="oldPassword" /></label>
-</div>
-<div class="setting-option">
-  <label>Username Baru: <input type="text" id="newUsername" /></label>
-</div>
-<div class="setting-option">
-  <label>Password Baru: <input type="password" id="newPassword" /></label>
-</div>
-<button onclick="updateAccount()">💾 Simpan Perubahan</button>
+    <div class="form-group">
+      <label for="newName">Ubah Nama</label>
+      <input type="text" id="newName" placeholder="Masukkan nama baru">
+      <button onclick="changeName()">Simpan Nama</button>
+    </div>
 
+    <div class="form-group">
+      <label for="newPassword">Ubah Password</label>
+      <input type="password" id="newPassword" placeholder="Masukkan password baru">
+      <button onclick="changePassword()">Simpan Password</button>
+    </div>
+    
   <footer>
     <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
   </footer>
