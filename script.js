@@ -100,6 +100,19 @@ function changeName() {
     location.reload();
   }
 }
+function changeEmail() {
+  const newEmail = document.getElementById("newEmail").value.trim();
+  if (!newEmail) {
+    alert("email tidak boleh kosong!");
+    return;
+  }
+  let users = JSON.perse(localStorage.getItem("users")) || {};
+  if (users[user]) {
+    users[user].email = newEmail;
+    localStorage.setItem("users", JSON.stringify");
+    alert("email berhasil diubah")
+  }
+}
 
 function changePassword() {
   const newPass = document.getElementById("newPassword").value;
