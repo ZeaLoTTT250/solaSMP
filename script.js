@@ -61,7 +61,7 @@ function checkLogin() {
     }
 
     if (profileName) {
-      profileName.innerHTML = `<h3>👤${username}</h3>`;
+      profileName.innerHTML = `<h3>👤${users[user].name}</h3>`;
     }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
