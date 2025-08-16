@@ -94,7 +94,6 @@ function joinDiscord() {
 
 function copyIP() {
   navigator.clipboard.writeText("play.solaSMP.mc");
-  alert("IP berhasil disalin!");
 }
 
 function playSound() {
