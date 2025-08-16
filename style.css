@@ -383,3 +383,20 @@ input {
 .rules-container li {
   margin-bottom: 10px;
 }
+.rules-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: left;
+  max-width: 600px;
+  margin: 20px auto;
+  line-height: 1.8;
+}
+
+.rules-box ol {
+  padding-left: 20px;
+}
+
+.rules-box li {
+  margin: 10px 0;
+}
