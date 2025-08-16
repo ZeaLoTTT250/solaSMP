@@ -473,3 +473,53 @@ input {
 .logout-btn:hover {
   background: darkred;
 }
+
+/* Default Light Mode */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f4f4;
+  color: #111;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Dark Mode */
+body.dark {
+  background: #1d1d1d;
+  color: #eee;
+}
+
+header, footer {
+  padding: 10px;
+  background: #111;
+  color: #aaa;
+}
+
+body.light header, body.light footer {
+  background: #ddd;
+  color: #333;
+}
+
+/* Tombol umum */
+button {
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #0088cc;
+}
+
+/* Neon style untuk tema Minecraft */
+h1, h2 {
+  color: #00ff00;
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+}
