@@ -100,6 +100,7 @@ function changeName() {
     location.reload();
   }
 }
+
 function changeEmail() {
   const newEmail = document.getElementById("newEmail").value.trim();
   if (!newEmail) {
@@ -111,6 +112,7 @@ function changeEmail() {
     users[user].email = newEmail;
     localStorage.setItem("users", JSON.stringify");
     alert("email berhasil diubah")
+    location.reload();
   }
 }
 
@@ -126,6 +128,7 @@ function changePassword() {
     users[user].password = newPass;
     localStorage.setItem("users", JSON.stringify(users));
     alert("Password berhasil diubah!");
+    location.reload();
   }
 }
 
