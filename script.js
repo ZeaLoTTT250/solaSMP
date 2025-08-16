@@ -61,8 +61,12 @@ function checkLogin() {
     }
 
     if (profileName) {
-      profileName.innerHTML = `<p>👤${user}</p>`;
-    }
+    const users = JSON.parse(localStorage.getItem("users")) || {};
+    const username = users[user] ? users[user].name : user; 
+    profileName.innerHTML = `
+        👤 ${username}
+    </p>`;
+    }    }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
     if (authButtons) authButtons.style.display = "block";
