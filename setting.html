@@ -5,26 +5,29 @@
   <title>⚙️ Settings - solaSMP</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="loadUser()">
+<body onload="loadProfile()">
 
   <header>
     <h1>⚙️ Settings - solaSMP</h1>
   </header>
 
   <main class="container">
-    <form id="settingsForm" class="card">
-      <label>🧑 Username</label>
-      <input type="text" id="username" required>
+    <div class="card">
+      <h2>Informasi Akun</h2>
+      <form id="profileForm">
+        <label>🧑 Username</label>
+        <input type="text" id="username" required>
 
-      <label>📧 Email</label>
-      <input type="email" id="email" required>
+        <label>📧 Email</label>
+        <input type="email" id="email" required>
 
-      <label>🔑 Password</label>
-      <input type="password" id="password" required>
+        <label>🔑 Password</label>
+        <input type="password" id="password" required>
 
-      <button type="submit">💾 Simpan Perubahan</button>
-      <a href="profile.html"><button type="button">⬅ Kembali</button></a>
-    </form>
+        <button type="submit">💾 Simpan Perubahan</button>
+        <button type="button" onclick="logout()">🚪 Logout</button>
+      </form>
+    </div>
   </main>
 
   <footer>
@@ -32,8 +35,8 @@
   </footer>
 
   <script>
-    // Ambil data user yang sedang login
-    function loadUser() {
+    // Tampilkan data user di form
+    function loadProfile() {
       const currentUser = localStorage.getItem("currentUser");
       if (!currentUser) {
         alert("Anda harus login dulu!");
@@ -51,8 +54,8 @@
       }
     }
 
-    // Simpan perubahan
-    document.getElementById("settingsForm").addEventListener("submit", function(e) {
+    // Simpan perubahan profil
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const newUsername = document.getElementById("username").value;
@@ -69,13 +72,19 @@
         return u;
       });
 
-      // Update localStorage
+      // Update ke localStorage
       localStorage.setItem("users", JSON.stringify(users));
       localStorage.setItem("currentUser", newEmail);
 
       alert("Perubahan berhasil disimpan!");
-      window.location.href = "profile.html";
+      loadProfile(); // reload data terbaru
     });
+
+    // Logout
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "login.html";
+    }
   </script>
 </body>
 </html>
