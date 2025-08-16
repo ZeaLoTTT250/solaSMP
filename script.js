@@ -89,7 +89,7 @@ function logout() {
 }
 
 function joinDiscord() {
-  window.open("https://discord.gg/WhApJpnZ", "_blank");
+  window.open("https://discord.gg/QgHj8gBG", "_blank");
 }
 
 function copyIP() {
