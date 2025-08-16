@@ -107,11 +107,11 @@ function changeEmail() {
     alert("email tidak boleh kosong!");
     return;
   }
-  let users = JSON.perse(localStorage.getItem("users")) || {};
+  let users = JSON.parse(localStorage.getItem("users")) || {};
   if (users[user]) {
     users[user].email = newEmail;
-    localStorage.setItem("users", JSON.stringify");
-    alert("email berhasil diubah")
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("email berhasil diubah!");
     location.reload();
   }
 }
