@@ -19,41 +19,17 @@
   <a href="https://discord.gg/QgHj8gBG" target="_blank">💬 Discord</a>
 </div>
   
-    div class="container profile-box neon-green">
+    <div class="container profile-box neon-green">
     <!-- Logo dan Nama Server -->
     <div class="logo-box">
       <img src="minecraft-logo.png" alt="SolaSMP Logo" class="server-logo animated">
       <h1 class="server-name animated">🔥 SolaSMP 🔥</h1>
     </div>
 
-  <div class="container centered animated">
-    <h1>⚙️ Pengaturan Akun</h1>
-
-    <form class="settings-form" action="update_settings.php" method="POST">
-      <div class="setting-option">
-        <label>Username sekarang: <b><?php echo htmlspecialchars($_SESSION['username']); ?></b></label>
-      </div>
-
-      <div class="setting-option">
-        <label>Username baru:
-          <input type="text" name="new_username" placeholder="(opsional)">
-        </label>
-      </div>
-
-      <div class="setting-option">
-        <label>Password lama:
-          <input type="password" name="old_password" placeholder="(wajib jika ganti password)">
-        </label>
-      </div>
-
-      <div class="setting-option">
-        <label>Password baru:
-          <input type="password" name="new_password" placeholder="(opsional)">
-        </label>
-      </div>
-
-      <button type="submit">💾 Simpan Perubahan</button>
-    </form>
+  <div class="container centered animated">   <div class="form-group">
+      <label for="newPassword">🔑 Ubah Password</label>
+      <input type="password" id="newPassword" placeholder="Masukkan password baru">
+      <button onclick="changePassword()">Simpan Password</button>
     
   <footer>
     <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
