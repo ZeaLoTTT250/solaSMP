@@ -26,7 +26,7 @@ function login() {
   const password = document.getElementById("loginPassword").value;
 
   if (!email || !password) {
-    alert("Isi semua data!");
+    alert("Isi email dan password!");
     return;
   }
 
