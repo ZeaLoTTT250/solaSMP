@@ -54,7 +54,7 @@ function checkLogin() {
     if (profileDiv && authButtons) {
       profileDiv.style.display = "block";
       authButtons.style.display = "none";
-      profileDiv.innerHTML = `
+      profileDiv.innerHTML = `<p>${username}</p>;
         
         <button onclick="logout()">Logout</button>
       `;
