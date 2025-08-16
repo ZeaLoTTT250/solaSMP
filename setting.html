@@ -1,35 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Pengaturan</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>⚙️ Settings - solaSMP</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body onload="loadSettings(); playSound(); animatePage();">
-  <audio id="joinSound" src="i.mp3" preload="auto"></audio>
+<body onload="loadUser()">
 
+  <header>
+    <h1>⚙️ Settings - solaSMP</h1>
+  </header>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <main class="container">
+    <form id="settingsForm" class="card">
+      <label>🧑 Username</label>
+      <input type="text" id="username" required>
 
-<!-- Side Menu -->
-<div id="sideMenu" class="side-menu">
-  <a href="profile.html">👤profile</a>
-  <a href="index.html">🏠 Beranda</a>
-  <a href="rules.html">🎮Tentang Server</a>
-  <a href="https://discord.gg/QgHj8gBG" target="_blank">💬 Discord</a>
-</div>
+      <label>📧 Email</label>
+      <input type="email" id="email" required>
 
-  <div class="container animated centered">   
-    <div class="form-group">
-      <label for="newPassword">🔑 Ubah Password</label>
-      <input type="password" id="newPassword" placeholder="Masukkan password baru">
-      <button onclick="changePassword()">Simpan Password</button>
-    </div>
-    
+      <label>🔑 Password</label>
+      <input type="password" id="password" required>
+
+      <button type="submit">💾 Simpan Perubahan</button>
+      <a href="profile.html"><button type="button">⬅ Kembali</button></a>
+    </form>
+  </main>
+
   <footer>
-    <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
+    <p>© 2025 solaSMP</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Ambil data user yang sedang login
+    function loadUser() {
+      const currentUser = localStorage.getItem("currentUser");
+      if (!currentUser) {
+        alert("Anda harus login dulu!");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const user = users.find(u => u.email === currentUser);
+
+      if (user) {
+        document.getElementById("username").value = user.username;
+        document.getElementById("email").value = user.email;
+        document.getElementById("password").value = user.password;
+      }
+    }
+
+    // Simpan perubahan
+    document.getElementById("settingsForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const newUsername = document.getElementById("username").value;
+      const newEmail = document.getElementById("email").value;
+      const newPassword = document.getElementById("password").value;
+
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      const currentUser = localStorage.getItem("currentUser");
+
+      users = users.map(u => {
+        if (u.email === currentUser) {
+          return { username: newUsername, email: newEmail, password: newPassword };
+        }
+        return u;
+      });
+
+      // Update localStorage
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("currentUser", newEmail);
+
+      alert("Perubahan berhasil disimpan!");
+      window.location.href = "profile.html";
+    });
+  </script>
 </body>
 </html>
