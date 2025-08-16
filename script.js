@@ -7,12 +7,7 @@ function register() {
     alert("Isi semua data!");
     return;
   }
-
-  let names = JSON.perse(localStorage.getItem("names")) || {};
-
-  if (names[username]) {
-  }
-
+  
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
   if (users[email]) {
@@ -66,7 +61,7 @@ function checkLogin() {
     }
 
     if (profileName) {
-      profileName.innerHTML = `<p>👤${names}</p>`;
+      profileName.innerHTML = `<p>👤${user}</p>`;
     }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
