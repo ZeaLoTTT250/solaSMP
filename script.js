@@ -1,41 +1,42 @@
 function register() {
   const username = document.getElementById("regUsername").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
   const password = document.getElementById("regPassword").value;
 
-  if (!username || !password) {
-    alert("Isi username, email dan password!");
+  if (!username || !email || !password) {
+    alert("Isi semua data!");
     return;
   }
 
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
-  if (users[username]) {
-    alert("Username sudah digunakan!");
+  if (users[email]) {
+    alert("Email sudah terdaftar!");
     return;
   }
 
-  users[username] = { password };
+  users[email] = { username, password };
   localStorage.setItem("users", JSON.stringify(users));
-  localStorage.setItem("loggedInUser", username);
+  localStorage.setItem("loggedInUser", email);
   window.location.href = "index.html";
 }
 
 function login() {
-  const username = document.getElementById("loginUsername").value.trim();
+  const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
 
-  if (!username || !password) {
-    alert("Isi username, email dan password!");
+  if (!email || !password) {
+    alert("Isi semua data!");
     return;
   }
 
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
-  if (users[username] && users[username].password === password) {
-    localStorage.setItem("loggedInUser", username);
+  if (users[email] && users[email].password === password) {
+    localStorage.setItem("loggedInUser", email);
     window.location.href = "index.html";
   } else {
-    alert("Username, Email atau password salah!");
+    alert("Email atau password salah!");
   }
 }
 
@@ -43,7 +44,6 @@ function logout() {
   localStorage.removeItem("loggedInUser");
   window.location.href = "index.html";
 }
-
 function checkLogin() {
   const user = localStorage.getItem("loggedInUser");
   const profileDiv = document.getElementById("profile");
