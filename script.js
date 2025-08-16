@@ -54,14 +54,14 @@ function checkLogin() {
     if (profileDiv && authButtons) {
       profileDiv.style.display = "block";
       authButtons.style.display = "none";
-      profileDiv.innerHTML = `<p>${username}</p>;
+      profileDiv.innerHTML = `
         
         <button onclick="logout()">Logout</button>
       `;
     }
 
     if (profileName) {
-      profileName.innerHTML = `<p>👤${username}</p>`;
+      profileName.innerHTML = `<h3>👤${username}</h3>`;
     }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
