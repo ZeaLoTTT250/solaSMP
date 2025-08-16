@@ -66,7 +66,7 @@ function checkLogin() {
     }
 
     if (profileName) {
-      profileName.innerHTML = `<p>👤${name}</p>`;
+      profileName.innerHTML = `<p>👤${names}</p>`;
     }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
