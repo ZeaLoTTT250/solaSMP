@@ -383,3 +383,93 @@ input {
 .rules-container li {
   margin-bottom: 10px;
 }
+
+/* Logo dan Nama Server */
+.logo-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.server-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 15px #0f0);
+}
+
+.server-name {
+  font-size: 2rem;
+  color: #00ff00;
+  text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+  font-family: "Minecraft", monospace;
+  letter-spacing: 2px;
+}
+
+/* Neon Minecraft Style */
+.neon-green {
+  border: 3px solid #00ff00;
+  border-radius: 10px;
+  padding: 20px;
+  background: #111;
+  box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+}
+
+.profile-box h1 {
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #0f0;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin: 15px 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 2px solid #0f0;
+  border-radius: 6px;
+  background: #000;
+  color: #0f0;
+  width: 100%;
+  outline: none;
+}
+
+.form-group button {
+  margin-top: 8px;
+  padding: 10px 20px;
+  background: #0f0;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.form-group button:hover {
+  background: #05a305;
+  box-shadow: 0 0 20px #0f0;
+}
+
+.logout-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: red;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}
