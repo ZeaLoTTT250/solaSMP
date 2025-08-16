@@ -111,10 +111,6 @@ function changePassword() {
     alert("Password berhasil diubah!");
   }
 }
-function logout() {
-  localStorage.removeItem("logInUser");
-  window.location.href = "index.html";
-}
 
 function joinDiscord() {
   window.open("https://discord.gg/QgHj8gBG", "_blank");
