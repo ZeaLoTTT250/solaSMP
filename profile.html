@@ -9,6 +9,17 @@
 <body onload="checkProfileAccess(); playSound(); animatePage();">
   <audio id="joinSound" src="i.mp3" preload="auto"></audio>
 
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<!-- Side Menu -->
+<div id="sideMenu" class="side-menu">
+  <a href="index.html">🏠 Beranda</a>
+  <a href="rules.html">🎮Tentang Server</a>
+  <a href="setting.html">⚙️setting</a>
+  <a href="https://discord.gg/QgHj8gBG" target="_blank">💬 Discord</a>
+</div>
+
+
   <div class="container animated centered">
     <h1>👤Profile</h1>
     <p id="usernameInfo">Memuat...</p>
