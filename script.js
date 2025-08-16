@@ -66,7 +66,7 @@ function checkLogin() {
     profileName.innerHTML = `
         👤 ${username}
     </p>`;
-    }    }
+    }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
     if (authButtons) authButtons.style.display = "block";
