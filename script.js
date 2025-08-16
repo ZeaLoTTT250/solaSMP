@@ -72,19 +72,47 @@ function checkLogin() {
 function checkProfileAccess() {
   const user = localStorage.getItem("loggedInUser");
   if (!user) {
-    alert("Kamu harus login terlebih dahulu.");
+    alert("Kamu harus login dahulu!");
     window.location.href = "login.html";
-    return;
-  }
-
-  const info = document.getElementById("usernameInfo");
-  if (info) {
-    info.innerHTML = `Selamat datang, <strong>${user}</strong>`;
+  } else {
+    const users = JSON.parse(localStorage.getItem("users")) || {};
+    document.getElementById("profileInfo").innerText = 
+      `Email: ${user}\nNama: ${users[user].name || "(Belum diatur)"}`;
   }
 }
 
+function changeName() {
+  const newName = document.getElementById("newName").value.trim();
+  if (!newName) {
+    alert("Nama tidak boleh kosong!");
+    return;
+  }
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  const user = localStorage.getItem("loggedInUser");
+  if (users[user]) {
+    users[user].name = newName;
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Nama berhasil diubah!");
+    location.reload();
+  }
+}
+
+function changePassword() {
+  const newPass = document.getElementById("newPassword").value;
+  if (!newPass) {
+    alert("Password tidak boleh kosong!");
+    return;
+  }
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  const user = localStorage.getItem("loggedInUser");
+  if (users[user]) {
+    users[user].password = newPass;
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Password berhasil diubah!");
+  }
+}
 function logout() {
-  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("logInUser");
   window.location.href = "index.html";
 }
 
@@ -179,48 +207,22 @@ function playSound() {
   const audio = document.getElementById("joinSound");
   if (enabled && audio) audio.play();
 }
-function updateAccount() {
-  const users = JSON.parse(localStorage.getItem("users")) || {};
-  const currentUser = localStorage.getItem("loggedInUser");
-
-  const oldPass = document.getElementById("oldPassword").value;
-  const newUser = document.getElementById("newUsername").value.trim();
-  const newPass = document.getElementById("newPassword").value;
-
-  if (!currentUser || !users[currentUser]) {
-    alert("Kamu tidak login.");
-    return;
-  }
-
-  if (users[currentUser].password !== oldPass) {
-    alert("Password lama salah!");
-    return;
-  }
-
-  // Ganti username jika dimasukkan
-  let finalUser = currentUser;
-  if (newUser && newUser !== currentUser) {
-    if (users[newUser]) {
-      alert("Username baru sudah dipakai!");
-      return;
+function changePassword() {
+  let newPass = document.getElementById("newPassword").value;
+  let user = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (user) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let idx = users.findIndex(u => u.email === user.email);
+    if (idx !== -1) {
+      users[idx].password = newPass;
+      localStorage.setItem("users", JSON.stringify(users));
+      user.password = newPass;
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      alert("✅ Password berhasil diubah!");
+      document.getElementById("newPassword").value = "";
     }
-    users[newUser] = { password: users[currentUser].password };
-    delete users[currentUser];
-    finalUser = newUser;
+  } else {
+    alert("⚠️ Kamu harus login dulu!");
+    window.location.href = "login.html";
   }
-
-  // Ganti password jika dimasukkan
-  if (newPass) {
-    users[finalUser].password = newPass;
-  }
-
-  // Simpan
-  localStorage.setItem("users", JSON.stringify(users));
-  localStorage.setItem("loggedInUser", finalUser);
-  alert("Akun berhasil diperbarui!");
-
-  // Reset input
-  document.getElementById("oldPassword").value = "";
-  document.getElementById("newUsername").value = "";
-  document.getElementById("newPassword").value = "";
 }
