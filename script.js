@@ -8,6 +8,11 @@ function register() {
     return;
   }
 
+  let names = JSON.perse(localStorage.getItem("names")) || {};
+
+  if (names[username]) {
+  }
+
   let users = JSON.parse(localStorage.getItem("users")) || {};
 
   if (users[email]) {
@@ -61,7 +66,7 @@ function checkLogin() {
     }
 
     if (profileName) {
-      profileName.innerHTML = `<p>👤${user}</p>`;
+      profileName.innerHTML = `<p>👤${name}</p>`;
     }
   } else {
     if (profileDiv) profileDiv.style.display = "none";
