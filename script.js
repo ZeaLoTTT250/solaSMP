@@ -132,6 +132,28 @@ function changePassword() {
   }
 }
 
+function uploadProfilePic() {
+      const file = document.getElementById("uploadPic").files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("profilePic").src = e.target.result;
+
+        // update langsung di localStorage
+        const currentUser = localStorage.getItem("currentUser");
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        users = users.map(u => {
+          if (u.email === currentUser) {
+            u.profilePic = e.target.result;
+          }
+          return u;
+        });
+        localStorage.setItem("users", JSON.stringify(users));
+      };
+      reader.readAsDataURL(file);
+   }
+
 function joinDiscord() {
   window.open("https://discord.gg/QgHj8gBG", "_blank");
 }
