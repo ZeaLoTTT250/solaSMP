@@ -474,12 +474,18 @@ input {
   background: darkred;
 }
 
-.profile-pic {
+.profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .profile-pic {
       width: 120px;
       height: 120px;
       object-fit: cover;
       border: 3px solid #00ff00;
-      margin-bottom: 10px;
       background: #111;
       display: block;
     }
