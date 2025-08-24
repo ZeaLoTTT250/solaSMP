@@ -18,7 +18,7 @@ function register() {
   users[email] = { username, password };
   localStorage.setItem("users", JSON.stringify(users));
   localStorage.setItem("loggedInUser", email);
-  window.location.href = "index.html";
+  window.location.href = "hub.html";
 }
 
 function login() {
@@ -34,7 +34,7 @@ function login() {
 
   if (users[email] && users[email].password === password) {
     localStorage.setItem("loggedInUser", email);
-    window.location.href = "index.html";
+    window.location.href = "hub.html";
   } else {
     alert("Email atau password salah!");
   }
@@ -42,7 +42,7 @@ function login() {
 
 function logout() {
   localStorage.removeItem("loggedInUser");
-  window.location.href = "index.html";
+  window.location.href = "hub.html";
 }
 function checkLogin() {
   const user = localStorage.getItem("loggedInUser");
