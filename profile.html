@@ -28,7 +28,11 @@
   <div class="container">
           <h2>👤 Profil Kamu</h2>
     <p id="profileInfo"></p>
-
+     <!-- Foto Profil -->
+      <img id="profilePic" class="profile-pic" src="default-avatar.png" alt="Foto Profil">
+      <br>
+      <input type="file" id="uploadPic" accept="image/*" onchange="uploadProfilePic()">
+    
     <div class="form-group">
       <label for="newName">Ubah Nama</label>
       <input type="text" id="newName" placeholder="Masukkan nama baru">
