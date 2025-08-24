@@ -72,6 +72,18 @@
 </head>
 <body onload="checkProfileAccess()">
 
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<!-- Side Menu -->
+<div id="sideMenu" class="side-menu">
+    <a href="hub.html">🏠 Beranda</a>
+    <a href="login.html">🔑 Login</a>
+    <a href="register.html">📝 Register</a>
+    <a href="profile.html">👤 Profil</a>
+    <a href="setting.html">⚙️ Setting</a>
+    <a href="javascript:void(0)" onclick="logout()">🚪 Logout</a>
+</div>
+
   <div class="profile-container">
     <h2>Profil SolaSMP</h2>
     
@@ -92,13 +104,8 @@
     <input type="email" id="newEmail" placeholder="Email baru">
     <button onclick="changeEmail()">Simpan Email</button>
 
-    <!-- Ubah Password -->
-    <h3>Ubah Password</h3>
-    <input type="password" id="newPassword" placeholder="Password baru">
-    <button onclick="changePassword()">Simpan Password</button>
-
     <!-- Logout -->
-    <button class="logout" onclick="logout()">Logout</button>
+    <button class="btn-logout" onclick="logout()">Logout</button>
   </div>
 
   <script>
