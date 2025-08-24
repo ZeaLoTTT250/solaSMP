@@ -473,3 +473,19 @@ input {
 .logout-btn:hover {
   background: darkred;
 }
+
+.profile-pic {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border: 3px solid #00ff00;
+      margin-bottom: 10px;
+      background: #111;
+      display: block;
+    }
+    .profile-pic.square {
+      border-radius: 8px; /* kotak */
+    }
+    .profile-pic.circle {
+      border-radius: 50%; /* lingkaran */
+    }
