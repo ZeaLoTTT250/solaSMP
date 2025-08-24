@@ -62,26 +62,6 @@
       border: 3px solid #00ff80;
       margin-bottom: 10px;
     }
-    .btn-upload {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-top: 10px;
-  background: #0f0;
-  color: #000;
-  font-weight: bold;
-  border: 2px solid #00ff00;
-  border-radius: 10px;
-  cursor: pointer;
-  text-transform: uppercase;
-  box-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
-  transition: transform 0.2s ease-in-out;
-}
-
-.btn-upload:hover {
-  transform: scale(1.05);
-  background: #1aff1a;
-  box-shadow: 0 0 15px #0f0, 0 0 30px #0f0;
-}
   </style>
 </head>
 <body onload="checkProfileAccess()">
@@ -89,13 +69,9 @@
     <h1>Profil SolaSMP</h1>
 
     <!-- Foto Profil -->
-    <div class="profile-pic">
-  <img id="profilePic" src="" alt="Foto Profil">
-  
-  <!-- Tombol custom -->
-  <input type="file" id="uploadPic" accept="image/*" style="display: none;">
-  <label for="uploadPic" class="btn-upload">Upload Foto</label>
-    </div>
+    <img id="profilePic" class="profile-pic" src="" alt="Foto Profil">
+    <br>
+    <input type="file" id="uploadPic" accept="image/*" onchange="uploadProfilePic()">
     
     <p id="profileInfo"></p>
 
@@ -200,11 +176,6 @@
         alert("Password berhasil diubah!");
         location.reload();
       }
-    }
-
-    function logout() {
-      localStorage.removeItem("loggedInUser");
-      window.location.href = "hub.html";
     }
   </script>
 </body>
