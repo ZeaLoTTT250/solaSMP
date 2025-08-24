@@ -22,16 +22,6 @@
       color: #00ff99;
     }
 
-    #profilePic {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #00ff99;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-
     #profileInfo {
       margin: 15px 0;
       white-space: pre-line;
@@ -69,14 +59,6 @@
 <body onload="checkProfileAccess()">
   <h1>Profil Saya</h1>
 
-  <!-- Foto Profil -->
-  <img id="profilePic" src="https://i.ibb.co/4pDNDk1/avatar.png" 
-       alt="Foto Profil" onclick="triggerUpload()">
-  <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadProfilePic(event)">
-  <div>
-    <button onclick="removeProfilePic()">Hapus Foto Profil</button>
-  </div>
-
   <!-- Info User -->
   <div id="profileInfo"></div>
 
@@ -94,27 +76,15 @@
   <button onclick="logout()">Logout</button>
 
   <script>
-    const defaultAvatar = "https://i.ibb.co/4pDNDk1/avatar.png";
-
     function checkProfileAccess() {
       const user = localStorage.getItem("loggedInUser");
       if (!user) {
         alert("Kamu harus login dahulu!");
         window.location.href = "login.html";
-        return;
-      }
-
-      const users = JSON.parse(localStorage.getItem("users")) || {};
-      if (users[user]) {
-        document.getElementById("profileInfo").innerText =
+      } else {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        document.getElementById("profileInfo").innerText = 
           `Email: ${users[user].email || user}\nNama: ${users[user].name || "(Belum diatur)"}`;
-
-        // tampilkan foto jika ada
-        if (users[user].photo) {
-          document.getElementById("profilePic").src = users[user].photo;
-        } else {
-          document.getElementById("profilePic").src = defaultAvatar;
-        }
       }
     }
 
@@ -147,40 +117,6 @@
         localStorage.setItem("users", JSON.stringify(users));
         alert("Email berhasil diubah!");
         checkProfileAccess();
-      }
-    }
-
-    function triggerUpload() {
-      document.getElementById("fileInput").click();
-    }
-
-    function uploadProfilePic(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const newPhoto = e.target.result;
-          document.getElementById("profilePic").src = newPhoto;
-
-          let users = JSON.parse(localStorage.getItem("users")) || {};
-          const user = localStorage.getItem("loggedInUser");
-          if (users[user]) {
-            users[user].photo = newPhoto;
-            localStorage.setItem("users", JSON.stringify(users));
-          }
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function removeProfilePic() {
-      let users = JSON.parse(localStorage.getItem("users")) || {};
-      const user = localStorage.getItem("loggedInUser");
-      if (users[user]) {
-        users[user].photo = null; // hapus foto
-        localStorage.setItem("users", JSON.stringify(users));
-        document.getElementById("profilePic").src = defaultAvatar;
-        alert("Foto profil berhasil dihapus!");
       }
     }
   </script>
