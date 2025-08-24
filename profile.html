@@ -2,207 +2,187 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profil SolaSMP</title>
+  <title>Profile</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: black;
-      color: lime;
       font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    .profile-container {
-      margin: 30px auto;
-      max-width: 400px;
+      background: #1e1e1e;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
       padding: 20px;
-      border: 2px solid lime;
-      border-radius: 15px;
-      box-shadow: 0 0 15px lime;
     }
-    h2 {
+
+    h1 {
       margin-bottom: 20px;
-      color: #00ff7f;
-      text-shadow: 0 0 10px lime;
+      color: #00ff99;
     }
-    .profile-pic {
+
+    #profilePic {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 3px solid lime;
       object-fit: cover;
+      border: 3px solid #00ff99;
       cursor: pointer;
-      box-shadow: 0 0 15px lime;
+      margin-bottom: 10px;
     }
-    .info {
+
+    #profileInfo {
       margin: 15px 0;
-      font-size: 14px;
-      color: #ccc;
-    }
-    input {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid lime;
-      border-radius: 8px;
-      background: black;
-      color: lime;
+      white-space: pre-line;
       text-align: center;
     }
-    button {
-      padding: 10px 15px;
-      margin: 5px 0 15px;
+
+    input {
+      padding: 8px;
+      margin: 5px 0;
       border: none;
-      border-radius: 8px;
-      background: lime;
-      color: black;
+      border-radius: 6px;
+      width: 220px;
+    }
+
+    button {
+      padding: 8px 15px;
+      margin: 6px 5px;
+      border: none;
+      border-radius: 6px;
+      background: #00ff99;
       cursor: pointer;
       font-weight: bold;
-      box-shadow: 0 0 10px lime;
     }
+
     button:hover {
-      background: #00ff7f;
+      background: #00cc77;
     }
-    .logout {
-      background: red;
-      color: white;
-      box-shadow: 0 0 10px red;
+
+    .form-section {
+      margin: 12px 0;
+      text-align: center;
     }
   </style>
 </head>
 <body onload="checkProfileAccess()">
+  <h1>Profil Saya</h1>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-<!-- Side Menu -->
-<div id="sideMenu" class="side-menu">
-    <a href="hub.html">🏠 Beranda</a>
-    <a href="login.html">🔑 Login</a>
-    <a href="register.html">📝 Register</a>
-    <a href="profile.html">👤 Profil</a>
-    <a href="setting.html">⚙️ Setting</a>
-    <a href="javascript:void(0)" onclick="logout()">🚪 Logout</a>
-</div>
-
-  <div class="profile-container">
-    <h2>Profil SolaSMP</h2>
-    
-    <!-- Foto Profil -->
-    <img id="profilePic" class="profile-pic" src="https://i.ibb.co/4pDNDk1/avatar.png" alt="Foto Profil" onclick="triggerUpload()">
-    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadProfilePic(event)">
-
-    <!-- Info -->
-    <div id="profileInfo"></div>
-
-    <!-- Ubah Nama -->
-    <h3>Ubah Nama</h3>
-    <input type="text" id="newName" placeholder="Nama baru">
-    <button onclick="changeName()">Simpan Nama</button>
-
-    <!-- Ubah Email -->
-    <h3>Ubah Email</h3>
-    <input type="email" id="newEmail" placeholder="Email baru">
-    <button onclick="changeEmail()">Simpan Email</button>
-
-    <!-- Logout -->
-    <button class="btn-logout" onclick="logout()">Logout</button>
+  <!-- Foto Profil -->
+  <img id="profilePic" src="https://i.ibb.co/4pDNDk1/avatar.png" 
+       alt="Foto Profil" onclick="triggerUpload()">
+  <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadProfilePic(event)">
+  <div>
+    <button onclick="removeProfilePic()">Hapus Foto Profil</button>
   </div>
 
+  <!-- Info User -->
+  <div id="profileInfo"></div>
+
+  <!-- Form Ganti Data -->
+  <div class="form-section">
+    <input type="text" id="newName" placeholder="Nama baru"><br>
+    <button onclick="changeName()">Ubah Nama</button>
+  </div>
+
+  <div class="form-section">
+    <input type="email" id="newEmail" placeholder="Email baru"><br>
+    <button onclick="changeEmail()">Ubah Email</button>
+  </div>
+
+  <button onclick="logout()">Logout</button>
+
   <script>
-  function checkProfileAccess() {
-    const user = localStorage.getItem("loggedInUser");
-    if (!user) {
-      alert("Kamu harus login dahulu!");
-      window.location.href = "login.html";
-      return;
-    }
+    const defaultAvatar = "https://i.ibb.co/4pDNDk1/avatar.png";
 
-    const users = JSON.parse(localStorage.getItem("users")) || {};
-
-    // jika user ada
-    if (users[user]) {
-      document.getElementById("profileInfo").innerText = 
-        `Email: ${users[user].email || user}\nNama: ${users[user].name || "(Belum diatur)"}`;
-
-      // tampilkan foto tersimpan (jika ada)
-      if (users[user].photo) {
-        document.getElementById("profilePic").src = users[user].photo;
-      } else {
-        // default avatar
-        document.getElementById("profilePic").src = "https://i.ibb.co/4pDNDk1/avatar.png";
+    function checkProfileAccess() {
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        alert("Kamu harus login dahulu!");
+        window.location.href = "login.html";
+        return;
       }
-    }
-  }
 
-  function changeName() {
-    const newName = document.getElementById("newName").value.trim();
-    if (!newName) {
-      alert("Nama tidak boleh kosong!");
-      return;
-    }
-    let users = JSON.parse(localStorage.getItem("users")) || {};
-    const user = localStorage.getItem("loggedInUser");
-    if (users[user]) {
-      users[user].name = newName;
-      localStorage.setItem("users", JSON.stringify(users));
-      alert("Nama berhasil diubah!");
-      checkProfileAccess(); // update langsung tanpa reload
-    }
-  }
+      const users = JSON.parse(localStorage.getItem("users")) || {};
+      if (users[user]) {
+        document.getElementById("profileInfo").innerText =
+          `Email: ${users[user].email || user}\nNama: ${users[user].name || "(Belum diatur)"}`;
 
-  function changeEmail() {
-    const newEmail = document.getElementById("newEmail").value.trim();
-    if (!newEmail) {
-      alert("Email tidak boleh kosong!");
-      return;
-    }
-    let users = JSON.parse(localStorage.getItem("users")) || {};
-    const user = localStorage.getItem("loggedInUser");
-    if (users[user]) {
-      users[user].email = newEmail;
-      localStorage.setItem("users", JSON.stringify(users));
-      alert("Email berhasil diubah!");
-      checkProfileAccess();
-    }
-  }
-
-  function changePassword() {
-    const newPass = document.getElementById("newPassword").value;
-    if (!newPass) {
-      alert("Password tidak boleh kosong!");
-      return;
-    }
-    let users = JSON.parse(localStorage.getItem("users")) || {};
-    const user = localStorage.getItem("loggedInUser");
-    if (users[user]) {
-      users[user].password = newPass;
-      localStorage.setItem("users", JSON.stringify(users));
-      alert("Password berhasil diubah!");
-    }
-  }
-
-  // Upload Foto Profil
-  function triggerUpload() {
-    document.getElementById("fileInput").click();
-  }
-
-  function uploadProfilePic(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const newPhoto = e.target.result;
-        document.getElementById("profilePic").src = newPhoto;
-
-        let users = JSON.parse(localStorage.getItem("users")) || {};
-        const user = localStorage.getItem("loggedInUser");
-        if (users[user]) {
-          users[user].photo = newPhoto;
-          localStorage.setItem("users", JSON.stringify(users));
+        // tampilkan foto jika ada
+        if (users[user].photo) {
+          document.getElementById("profilePic").src = users[user].photo;
+        } else {
+          document.getElementById("profilePic").src = defaultAvatar;
         }
       }
-      reader.readAsDataURL(file);
     }
-  }
-  </script></body>
+
+    function changeName() {
+      const newName = document.getElementById("newName").value.trim();
+      if (!newName) {
+        alert("Nama tidak boleh kosong!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].name = newName;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Nama berhasil diubah!");
+        checkProfileAccess();
+      }
+    }
+
+    function changeEmail() {
+      const newEmail = document.getElementById("newEmail").value.trim();
+      if (!newEmail) {
+        alert("Email tidak boleh kosong!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].email = newEmail;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Email berhasil diubah!");
+        checkProfileAccess();
+      }
+    }
+
+    function triggerUpload() {
+      document.getElementById("fileInput").click();
+    }
+
+    function uploadProfilePic(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const newPhoto = e.target.result;
+          document.getElementById("profilePic").src = newPhoto;
+
+          let users = JSON.parse(localStorage.getItem("users")) || {};
+          const user = localStorage.getItem("loggedInUser");
+          if (users[user]) {
+            users[user].photo = newPhoto;
+            localStorage.setItem("users", JSON.stringify(users));
+          }
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function removeProfilePic() {
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].photo = null; // hapus foto
+        localStorage.setItem("users", JSON.stringify(users));
+        document.getElementById("profilePic").src = defaultAvatar;
+        alert("Foto profil berhasil dihapus!");
+      }
+    }
+  </script>
+</body>
 </html>
