@@ -1,48 +1,149 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Profil Pengguna</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Profile - SolaSMP</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Minecraftia', sans-serif;
+      background: #0a0a0a;
+      color: #00ff80;
+      text-align: center;
+    }
+    .profile-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 2px solid #00ff80;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 15px #00ff80;
+    }
+    h1 {
+      text-shadow: 0 0 10px #00ff80;
+    }
+    textarea, input {
+      width: 90%;
+      margin: 5px 0;
+      padding: 8px;
+      border: 2px solid #00ff80;
+      border-radius: 10px;
+      background: #111;
+      color: #00ff80;
+      outline: none;
+      font-family: inherit;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 10px;
+      background: #00ff80;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #00cc66;
+      box-shadow: 0 0 10px #00ff80;
+    }
+    .logout-btn {
+      margin-top: 20px;
+      background: red;
+      color: white;
+    }
+  </style>
 </head>
-<body onload="checkProfileAccess(); playSound(); animatePage();">
-  <audio id="joinSound" src="i.mp3" preload="auto"></audio>
-
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-<!-- Side Menu -->
-<div id="sideMenu" class="side-menu">
-  <a href="hub.html">🏠 Beranda</a>
-  <a href="rules.html">🎮Tentang Server</a>
-  <a href="setting.html">⚙️setting</a>
-  <a href="https://discord.gg/QgHj8gBG" target="_blank">💬 Discord</a>
-</div>  
-  
-    <div class="container profile-box neon-green">
-    <!-- Logo dan Nama Server -->
-    <div class="logo-box">
-      <img src="minecraft-logo.png" alt="SolaSMP Logo" class="server-logo">
-      <h1 class="server-name">🔥 SolaSMP 🔥</h1>
-    </div>
-  
-  <div class="container">
-          <h2>👤 Profil Kamu</h2>
+<body onload="checkProfileAccess()">
+  <div class="profile-container">
+    <h1>Profil SolaSMP</h1>
     <p id="profileInfo"></p>
-     <!-- Foto Profil -->
-      <img id="profilePic" class="profile-pic" src="default-avatar.png" alt="Foto Profil">
-      <br>
-      <input type="file" id="uploadPic" accept="image/*" onchange="uploadProfilePic()">
-    
-    <div class="form-group">
-      <label for="newName">Ubah Nama</label>
-      <input type="text" id="newName" placeholder="Masukkan nama baru">
-      <button onclick="changeName()">Simpan Nama</button>
-    </div>
-      
-   <footer>
-    <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
-  </footer>
 
-  <script src="script.js"></script>
+    <h3>Ubah Nama</h3>
+    <input type="text" id="newName" placeholder="Nama baru">
+    <button onclick="changeName()">Simpan Nama</button>
+
+    <h3>Ubah Email</h3>
+    <input type="email" id="newEmail" placeholder="Email baru">
+    <button onclick="changeEmail()">Simpan Email</button>
+
+    <h3>Ubah Password</h3>
+    <input type="password" id="newPassword" placeholder="Password baru">
+    <button onclick="changePassword()">Simpan Password</button>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    function checkProfileAccess() {
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        alert("Kamu harus login dahulu!");
+        window.location.href = "login.html";
+      } else {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        document.getElementById("profileInfo").innerText = 
+          `Email: ${user}\nNama: ${users[user].name || "(Belum diatur)"}`;
+      }
+    }
+
+    function changeName() {
+      const newName = document.getElementById("newName").value.trim();
+      if (!newName) {
+        alert("Nama tidak boleh kosong!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].name = newName;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Nama berhasil diubah!");
+        location.reload();
+      }
+    }
+
+    function changeEmail() {
+      const newEmail = document.getElementById("newEmail").value.trim();
+      if (!newEmail) {
+        alert("Email tidak boleh kosong!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser"); // ✅ ditambahkan
+      if (users[user]) {
+        // simpan di key baru
+        users[newEmail] = users[user];
+        delete users[user];
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("loggedInUser", newEmail); // update session
+        alert("Email berhasil diubah!");
+        location.reload();
+      }
+    }
+
+    function changePassword() {
+      const newPass = document.getElementById("newPassword").value;
+      if (!newPass) {
+        alert("Password tidak boleh kosong!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].password = newPass;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Password berhasil diubah!");
+        location.reload();
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
+  </script>
 </body>
 </html>
