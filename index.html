@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading...</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #0d0d0d;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      width: 80%;
+      max-width: 420px;
+    }
+
+    h1 {
+      color: #00ff88;
+      margin-bottom: 25px;
+      text-shadow: 0 0 15px #00ff88;
+      font-size: 22px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 28px;
+      background: #222;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 12px #000;
+      position: relative;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      border-radius: 15px;
+      transition: width 0.1s linear, background 0.3s ease;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    .percentage {
+      margin-top: 12px;
+      font-size: 20px;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+
+    /* Spinner neon di pojok kanan bawah */
+    .spinner {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: 5px solid rgba(255,255,255,0.2);
+      border-top: 5px solid #00ff88;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 15px #00ff88, 0 0 25px #00ff88 inset;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="loadingText">Loading</h1>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="percentage" id="percentage">0%</div>
+  </div>
+
+  <!-- Spinner neon pojok kanan bawah -->
+  <div class="spinner"></div>
+
+  <script>
+    let progress = document.getElementById("progress");
+    let percentage = document.getElementById("percentage");
+    let loadingText = document.getElementById("loadingText");
+    let width = 0;
+    let duration = 4000; // 4 detik
+    let intervalTime = 100; // update setiap 0.1 detik
+    let step = 100 / (duration / intervalTime);
+
+    // Progress Bar
+    let interval = setInterval(() => {
+      width += step;
+      if (width >= 100) {
+        width = 100;
+        clearInterval(interval);
+        window.location.href = "hub.html"; // pindah ke hub.html
+      }
+      progress.style.width = width + "%";
+      percentage.textContent = Math.floor(width) + "%";
+
+      // Warna sesuai persentase
+      if (width <= 20) {
+        progress.style.background = "red";
+        progress.style.boxShadow = "0 0 20px red";
+      } else if (width <= 60) {
+        progress.style.background = "orange";
+        progress.style.boxShadow = "0 0 20px orange";
+      } else if (width <= 80) {
+        progress.style.background = "yellow";
+        progress.style.boxShadow = "0 0 20px yellow";
+      } else {
+        progress.style.background = "limegreen";
+        progress.style.boxShadow = "0 0 20px limegreen";
+      }
+    }, intervalTime);
+
+    // Animasi "Loading..."
+    let dots = 0;
+    setInterval(() => {
+      dots = (dots + 1) % 4; // 0,1,2,3 → ulang
+      loadingText.textContent = "Loading" + ".".repeat(dots);
+    }, 300); // ganti setiap 0.5 detik
+  </script>
+</body>
+</html>
