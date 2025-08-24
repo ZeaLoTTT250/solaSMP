@@ -2,101 +2,102 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Profile - SolaSMP</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil SolaSMP</title>
   <style>
     body {
-      font-family: 'Minecraftia', sans-serif;
-      background: #0a0a0a;
-      color: #00ff80;
+      background: black;
+      color: lime;
+      font-family: Arial, sans-serif;
       text-align: center;
     }
     .profile-container {
+      margin: 30px auto;
       max-width: 400px;
-      margin: 50px auto;
       padding: 20px;
-      border: 2px solid #00ff80;
+      border: 2px solid lime;
       border-radius: 15px;
-      background: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 0 15px #00ff80;
+      box-shadow: 0 0 15px lime;
     }
-    h1 {
-      text-shadow: 0 0 10px #00ff80;
+    h2 {
+      margin-bottom: 20px;
+      color: #00ff7f;
+      text-shadow: 0 0 10px lime;
     }
-    textarea, input {
-      width: 90%;
-      margin: 5px 0;
-      padding: 8px;
-      border: 2px solid #00ff80;
-      border-radius: 10px;
-      background: #111;
-      color: #00ff80;
-      outline: none;
-      font-family: inherit;
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid lime;
+      object-fit: cover;
+      cursor: pointer;
+      box-shadow: 0 0 15px lime;
+    }
+    .info {
+      margin: 15px 0;
+      font-size: 14px;
+      color: #ccc;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid lime;
+      border-radius: 8px;
+      background: black;
+      color: lime;
+      text-align: center;
     }
     button {
-      margin-top: 10px;
-      padding: 8px 15px;
+      padding: 10px 15px;
+      margin: 5px 0 15px;
       border: none;
-      border-radius: 10px;
-      background: #00ff80;
+      border-radius: 8px;
+      background: lime;
       color: black;
-      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
+      font-weight: bold;
+      box-shadow: 0 0 10px lime;
     }
     button:hover {
-      background: #00cc66;
-      box-shadow: 0 0 10px #00ff80;
+      background: #00ff7f;
     }
-    .logout-btn {
-      margin-top: 20px;
+    .logout {
       background: red;
       color: white;
+      box-shadow: 0 0 10px red;
     }
- .profile-pic img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 3px solid #00ff00;
-  box-shadow: 0 0 15px #0f0, 0 0 25px #0f0;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.profile-pic img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #0f0, 0 0 40px #0f0;
-}
   </style>
 </head>
 <body onload="checkProfileAccess()">
+
   <div class="profile-container">
-    <h1>Profil SolaSMP</h1>
-
-    <div class="profile-pic">
-  <!-- Foto profil yang bisa diklik -->
-  <img id="profilePic" src="https://via.placeholder.com/150" alt="Foto Profil">
-  
-  <!-- Input file disembunyikan -->
-  <input type="file" id="uploadPic" accept="image/*" style="display:none;">
-    </div>    
+    <h2>Profil SolaSMP</h2>
     
-    <p id="profileInfo"></p>
+    <!-- Foto Profil -->
+    <img id="profilePic" class="profile-pic" src="https://i.ibb.co/4pDNDk1/avatar.png" alt="Foto Profil" onclick="triggerUpload()">
+    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="uploadProfilePic(event)">
 
+    <!-- Info -->
+    <div id="profileInfo" class="info"></div>
+
+    <!-- Ubah Nama -->
     <h3>Ubah Nama</h3>
     <input type="text" id="newName" placeholder="Nama baru">
     <button onclick="changeName()">Simpan Nama</button>
 
+    <!-- Ubah Email -->
     <h3>Ubah Email</h3>
     <input type="email" id="newEmail" placeholder="Email baru">
     <button onclick="changeEmail()">Simpan Email</button>
 
+    <!-- Ubah Password -->
     <h3>Ubah Password</h3>
     <input type="password" id="newPassword" placeholder="Password baru">
     <button onclick="changePassword()">Simpan Password</button>
 
-    <button class="logout-btn" onclick="logout()">Logout</button>
+    <!-- Logout -->
+    <button class="logout" onclick="logout()">Logout</button>
   </div>
 
   <script>
@@ -107,34 +108,14 @@
         window.location.href = "login.html";
       } else {
         const users = JSON.parse(localStorage.getItem("users")) || {};
-        const data = users[user] || {};
         document.getElementById("profileInfo").innerText = 
-          `Email: ${user}\nNama: ${data.name || "(Belum diatur)"}`;
-        
-        // tampilkan foto profil kalau ada
-        if (data.profilePic) {
-          document.getElementById("profilePic").src = data.profilePic;
-        } else {
-          document.getElementById("profilePic").src = "https://via.placeholder.com/120?text=Foto";
+          `Email: ${users[user].email || user}\nNama: ${users[user].name || "(Belum diatur)"}`;
+
+        // Tampilkan foto profil tersimpan
+        if (users[user].photo) {
+          document.getElementById("profilePic").src = users[user].photo;
         }
       }
-    }
-
-    function uploadProfilePic() {
-      const file = document.getElementById("uploadPic").files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        let users = JSON.parse(localStorage.getItem("users")) || {};
-        const user = localStorage.getItem("loggedInUser");
-        if (users[user]) {
-          users[user].profilePic = e.target.result; // simpan base64
-          localStorage.setItem("users", JSON.stringify(users));
-          document.getElementById("profilePic").src = e.target.result;
-        }
-      }
-      reader.readAsDataURL(file);
     }
 
     function changeName() {
@@ -162,10 +143,8 @@
       let users = JSON.parse(localStorage.getItem("users")) || {};
       const user = localStorage.getItem("loggedInUser");
       if (users[user]) {
-        users[newEmail] = users[user];
-        delete users[user];
+        users[user].email = newEmail;
         localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("loggedInUser", newEmail);
         alert("Email berhasil diubah!");
         location.reload();
       }
@@ -186,44 +165,35 @@
         location.reload();
       }
     }
-  </script>
-  <script>
-  const profilePic = document.getElementById("profilePic");
-  const uploadPic = document.getElementById("uploadPic");
 
-  // klik gambar → buka file input
-  profilePic.addEventListener("click", () => {
-    uploadPic.click();
-  });
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
 
-  // ketika file dipilih
-  uploadPic.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        profilePic.src = e.target.result;
+    // Upload Foto Profil
+    function triggerUpload() {
+      document.getElementById("fileInput").click();
+    }
 
-        // simpan ke localStorage supaya tidak hilang setelah reload
-        const user = localStorage.getItem("loggedInUser");
-        let users = JSON.parse(localStorage.getItem("users")) || {};
-        if (users[user]) {
-          users[user].photo = e.target.result;
-          localStorage.setItem("users", JSON.stringify(users));
+    function uploadProfilePic(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const newPhoto = e.target.result;
+          document.getElementById("profilePic").src = newPhoto;
+
+          let users = JSON.parse(localStorage.getItem("users")) || {};
+          const user = localStorage.getItem("loggedInUser");
+          if (users[user]) {
+            users[user].photo = newPhoto;
+            localStorage.setItem("users", JSON.stringify(users));
+          }
         }
-      };
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
     }
-  });
-
-  // load foto dari localStorage saat buka halaman
-  window.addEventListener("DOMContentLoaded", () => {
-    const user = localStorage.getItem("loggedInUser");
-    let users = JSON.parse(localStorage.getItem("users")) || {};
-    if (users[user] && users[user].photo) {
-      profilePic.src = users[user].photo;
-    }
-  });
   </script>
 </body>
 </html>
