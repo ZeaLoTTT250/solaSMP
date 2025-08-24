@@ -62,16 +62,33 @@
       border: 3px solid #00ff80;
       margin-bottom: 10px;
     }
+    .profile-pic img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #00ff00;
+  box-shadow: 0 0 15px #0f0, 0 0 25px #0f0;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.profile-pic img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0f0, 0 0 40px #0f0;
+}
   </style>
 </head>
 <body onload="checkProfileAccess()">
   <div class="profile-container">
     <h1>Profil SolaSMP</h1>
 
-    <!-- Foto Profil -->
-    <img id="profilePic" class="profile-pic" src="" alt="Foto Profil">
-    <br>
-    <input type="file" id="uploadPic" accept="image/*" onchange="uploadProfilePic()">
+    <div class="profile-pic">
+  <!-- Foto profil yang bisa diklik -->
+  <img id="profilePic" src="https://via.placeholder.com/150" alt="Foto Profil">
+  
+  <!-- Input file disembunyikan -->
+  <input type="file" id="uploadPic" accept="image/*" style="display:none;">
+    </div>    
     
     <p id="profileInfo"></p>
 
@@ -177,6 +194,44 @@
         location.reload();
       }
     }
+  </script>
+  <script>
+  const profilePic = document.getElementById("profilePic");
+  const uploadPic = document.getElementById("uploadPic");
+
+  // klik gambar → buka file input
+  profilePic.addEventListener("click", () => {
+    uploadPic.click();
+  });
+
+  // ketika file dipilih
+  uploadPic.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        profilePic.src = e.target.result;
+
+        // simpan ke localStorage supaya tidak hilang setelah reload
+        const user = localStorage.getItem("loggedInUser");
+        let users = JSON.parse(localStorage.getItem("users")) || {};
+        if (users[user]) {
+          users[user].photo = e.target.result;
+          localStorage.setItem("users", JSON.stringify(users));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // load foto dari localStorage saat buka halaman
+  window.addEventListener("DOMContentLoaded", () => {
+    const user = localStorage.getItem("loggedInUser");
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+    if (users[user] && users[user].photo) {
+      profilePic.src = users[user].photo;
+    }
+  });
   </script>
 </body>
 </html>
