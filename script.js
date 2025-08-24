@@ -138,9 +138,11 @@ function uploadProfilePic() {
 
       const reader = new FileReader();
       reader.onload = function(e) {
-        document.getElementById("profilePic").src = e.target.result;
+        const pic = document.getElementById("profilePic");
+        pic.src = e.target.result;
+        pic.classList.remove("square");
+        pic.classList.add("circle");
 
-        // update langsung di localStorage
         const currentUser = localStorage.getItem("currentUser");
         let users = JSON.parse(localStorage.getItem("users")) || [];
         users = users.map(u => {
@@ -152,8 +154,7 @@ function uploadProfilePic() {
         localStorage.setItem("users", JSON.stringify(users));
       };
       reader.readAsDataURL(file);
-   }
-
+}
 function joinDiscord() {
   window.open("https://discord.gg/QgHj8gBG", "_blank");
 }
