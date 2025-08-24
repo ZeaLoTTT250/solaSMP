@@ -54,11 +54,25 @@
       background: red;
       color: white;
     }
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #00ff80;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body onload="checkProfileAccess()">
   <div class="profile-container">
     <h1>Profil SolaSMP</h1>
+
+    <!-- Foto Profil -->
+    <img id="profilePic" class="profile-pic" src="" alt="Foto Profil">
+    <br>
+    <input type="file" id="uploadPic" accept="image/*" onchange="uploadProfilePic()">
+    
     <p id="profileInfo"></p>
 
     <h3>Ubah Nama</h3>
@@ -84,9 +98,34 @@
         window.location.href = "login.html";
       } else {
         const users = JSON.parse(localStorage.getItem("users")) || {};
+        const data = users[user] || {};
         document.getElementById("profileInfo").innerText = 
-          `Email: ${user}\nNama: ${users[user].name || "(Belum diatur)"}`;
+          `Email: ${user}\nNama: ${data.name || "(Belum diatur)"}`;
+        
+        // tampilkan foto profil kalau ada
+        if (data.profilePic) {
+          document.getElementById("profilePic").src = data.profilePic;
+        } else {
+          document.getElementById("profilePic").src = "https://via.placeholder.com/120?text=Foto";
+        }
       }
+    }
+
+    function uploadProfilePic() {
+      const file = document.getElementById("uploadPic").files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        let users = JSON.parse(localStorage.getItem("users")) || {};
+        const user = localStorage.getItem("loggedInUser");
+        if (users[user]) {
+          users[user].profilePic = e.target.result; // simpan base64
+          localStorage.setItem("users", JSON.stringify(users));
+          document.getElementById("profilePic").src = e.target.result;
+        }
+      }
+      reader.readAsDataURL(file);
     }
 
     function changeName() {
@@ -112,13 +151,12 @@
         return;
       }
       let users = JSON.parse(localStorage.getItem("users")) || {};
-      const user = localStorage.getItem("loggedInUser"); // ✅ ditambahkan
+      const user = localStorage.getItem("loggedInUser");
       if (users[user]) {
-        // simpan di key baru
         users[newEmail] = users[user];
         delete users[user];
         localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("loggedInUser", newEmail); // update session
+        localStorage.setItem("loggedInUser", newEmail);
         alert("Email berhasil diubah!");
         location.reload();
       }
@@ -138,6 +176,11 @@
         alert("Password berhasil diubah!");
         location.reload();
       }
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "hub.html";
     }
   </script>
 </body>
