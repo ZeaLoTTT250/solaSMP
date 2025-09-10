@@ -30,6 +30,18 @@
     </div>
   </main>
 
+  <button onclick="hapusSemuaData()">Hapus Semua Data</button>
+
+<script>
+function hapusSemuaData() {
+  if (confirm("Apakah kamu yakin ingin menghapus semua data?")) {
+    localStorage.clear();
+    alert("Semua data berhasil dihapus!");
+    window.location.href = "register.html";
+  }
+}
+</script>
+
   <footer>
     <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
   </footer>
