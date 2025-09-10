@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login/Register</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to top, black, skyblue, gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    background: white;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 20px 20px rgba(0,0,0,0.9);
+    overflow: hidden;
+    position: relative;
+    height: 500px; /* fixed height to avoid jump */
+  }
+
+  .form-header {
+    display: flex;
+  }
+
+  .form-header button {
+    flex: 1;
+    padding: 18px 0;
+    border: none;
+    background: #eee;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+    z-index: 10;
+    position: relative;
+  }
+  .form-header button.active {
+    background: black;
+    color: white;
+    
+  }
+
+  form {
+    position: absolute;
+    top: 100px; /* below header */
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: transparent;
+    transition: transform -8.7s ease, opacity 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  form.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+    z-index: 5;
+  }
+
+  /* Start off-screen right */
+  #loginForm {
+    transform: translateX(100%);
+  }
+
+  #registerForm {
+    transform: translateX(100%);
+  }
+
+  /* When active, slide in from right */
+  #loginForm.active {
+    transform: translateX(0);
+  }
+
+  #registerForm.active {
+    transform: translateX(0);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="password"] {
+    width: 93%;
+    padding: 12px 10px;
+    margin: 10px 0;
+    border: solid #ccc;
+    background: #eee;
+    border-radius: 5px;
+    outline-color: black;
+  }
+
+  button.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: black;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  h2 {
+    text-align: center;
+    color: black;
+  }
+  button.back-btn {
+    width: 20;
+    padding: 12px;
+    background: red;
+    color: white;
+    margin: 10px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="form-header">
+    <button id="loginBtn" class="active">Login</button>
+    <button id="registerBtn">Register</button>
+  </div>
+
+  <form id="loginForm" class="active" autocomplete="off">
+    <h2>WELCOME BACK</h2>
+    <input type="email" placeholder="Email" id="loginEmail" required />
+    <input type="password" placeholder="Password" id="loginPassword" required />
+    <button type="submit" class="submit-btn" onclick="login()">Login</button>
+  </form>
+
+  <form id="registerForm" autocomplete="off">
+    <h2>CREATE ACCOUNT</h2>
+    <input type="text" placeholder="Full Name" id="regUsername" required />
+    <input type="date" placeholder="birtday" id="regBirthday" required />
+    <input type="email" placeholder="Email" id="regEmail" required />
+    <input type="password" placeholder="Password" id="regPassword" required />
+    <button type="submit" class="submit-btn" onclick="register()">Register</button>
+  </form>
+  <a href="hub.html"><button class="back-btn">BACK</button></a>
+</div>
+
+
+<script>
+  const loginBtn = document.getElementById('loginBtn');
+  const registerBtn = document.getElementById('registerBtn');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+
+  loginBtn.addEventListener('click', () => {
+    loginBtn.classList.add('active');
+    registerBtn.classList.remove('active');
+    loginForm.classList.add('active');
+    registerForm.classList.remove('active');
+  });
+
+  registerBtn.addEventListener('click', () => {
+    registerBtn.classList.add('active');
+    loginBtn.classList.remove('active');
+    registerForm.classList.add('active');
+    loginForm.classList.remove('active');
+  });
+</script>
+<script src="script.js" ></script>
+</body>
+</html>
