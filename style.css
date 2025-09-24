@@ -495,3 +495,34 @@ input {
     .profile-pic.circle {
       border-radius: 50%; /* lingkaran */
     }
+    .profile-card {
+  background: #2d2d2d;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-card input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.profile-card button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.profile-card button:hover {
+  background: #45a049;
+}
