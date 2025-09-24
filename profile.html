@@ -2,148 +2,78 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil Pengguna</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #0d0d0d;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      position: relative;
-      box-sizing: border-box;
-      border: 4px solid #00ff88;
-      box-shadow: 0 0 25px #00ff88, inset 0 0 20px #00ff88;
-    }
-
-    .profile-container {
-      background: rgba(20, 20, 20, 0.9);
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #00ff88;
-      width: 90%;
-      max-width: 420px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    h1 {
-      color: #00ff88;
-      text-shadow: 0 0 12px #00ff88;
-      margin-bottom: 20px;
-    }
-
-    #profileInfo {
-      margin-bottom: 20px;
-      font-size: 16px;
-      line-height: 1.5;
-      white-space: pre-line;
-    }
-
-    button {
-      margin: 8px 0;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      background: #00ff88;
-      color: #0d0d0d;
-      box-shadow: 0 0 12px #00ff88;
-      transition: transform 0.2s ease;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #00ff88, 0 0 35px #00ff88;
-    }
-  </style>
+  <script defer src="script.js"></script>
 </head>
-<body onload="checkProfileAccess()">
+<body>
+  <header>
+    <img src="logo.png" alt="Minecraft Logo" class="logo">
+    <nav>
+      <a href="index.html">🏠 Beranda</a>
+      <button onclick="logout()">Keluar</button>
+    </nav>
+  </header>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <main class="fade-in">
+    <h2>Profil Saya</h2>
+    <div class="profile-card">
+      <label><strong>Username:</strong></label>
+      <input type="text" id="profile-username">
 
-<!-- Side Menu -->
-<div id="sideMenu" class="side-menu">
-    <a href="hub.html">🏠 Beranda</a>
-    <a href="login.html">🔑 Login</a>
-    <a href="register.html">📝 Register</a>
-    <a href="profile.html">👤 Profil</a>
-    <a href="setting.html">⚙️ Setting</a>
-    <a href="javascript:void(0)" onclick="logout()">🚪 Logout</a>
-</div>
-  
-  <h1>Profil Saya</h1>
+      <label><strong>Email:</strong></label>
+      <input type="email" id="profile-email">
 
-  <!-- Info User -->
-  <div id="profileInfo"></div>
+      <button onclick="saveProfile()">Simpan Perubahan</button>
+    </div>
+  </main>
 
-  <!-- Form Ganti Data -->
-  <div class="form-section">
-    <input type="text" id="newName" placeholder="Nama baru"><br>
-    <button onclick="changeName()">Ubah Nama</button>
-  </div>
-
-  <div class="form-section">
-    <input type="email" id="newEmail" placeholder="Email baru"><br>
-    <button onclick="changeEmail()">Ubah Email</button>
-  </div>
-
-
-      <a href="hub.html"><button>⬅️ Kembali ke Beranda</button></a>
-  </div>
-
+  <footer>
+    <p>&copy; 2025 Server Minecraft. Dibuat oleh Admin.</p>
+  </footer>
 
   <script>
-    function checkProfileAccess() {
+    // Saat halaman dibuka
+    document.addEventListener("DOMContentLoaded", () => {
       const user = localStorage.getItem("loggedInUser");
       if (!user) {
-        alert("Kamu harus login dahulu!");
+        alert("Kamu belum login!");
         window.location.href = "login.html";
-      } else {
-        const users = JSON.parse(localStorage.getItem("users")) || {};
-        document.getElementById("profileInfo").innerText = 
-          `Email: ${users[user].email || user}\nNama: ${users[user].name || "(Belum diatur)"}`;
-      }
-    }
-
-    function changeName() {
-      const newName = document.getElementById("newName").value.trim();
-      if (!newName) {
-        alert("Nama tidak boleh kosong!");
         return;
       }
-      let users = JSON.parse(localStorage.getItem("users")) || {};
-      const user = localStorage.getItem("loggedInUser");
-      if (users[user]) {
-        users[user].name = newName;
-        localStorage.setItem("users", JSON.stringify(users));
-        alert("Nama berhasil diubah!");
-        checkProfileAccess();
-      }
-    }
 
-    function changeEmail() {
-      const newEmail = document.getElementById("newEmail").value.trim();
-      if (!newEmail) {
-        alert("Email tidak boleh kosong!");
+      // Ambil data profil dari localStorage
+      const email = localStorage.getItem("email_" + user) || "";
+
+      document.getElementById("profile-username").value = user;
+      document.getElementById("profile-email").value = email;
+    });
+
+    // Simpan perubahan profil
+    function saveProfile() {
+      const newUser = document.getElementById("profile-username").value;
+      const newEmail = document.getElementById("profile-email").value;
+      const oldUser = localStorage.getItem("loggedInUser");
+
+      if (!newUser) {
+        alert("Username tidak boleh kosong!");
         return;
       }
-      let users = JSON.parse(localStorage.getItem("users")) || {};
-      const user = localStorage.getItem("loggedInUser");
-      if (users[user]) {
-        users[user].email = newEmail;
-        localStorage.setItem("users", JSON.stringify(users));
-        alert("Email berhasil diubah!");
-        checkProfileAccess();
-      }
+
+      // Update data username
+      const oldPass = localStorage.getItem("user_" + oldUser);
+      localStorage.removeItem("user_" + oldUser);
+      localStorage.setItem("user_" + newUser, oldPass);
+
+      // Update email
+      localStorage.setItem("email_" + newUser, newEmail);
+
+      // Update loggedInUser
+      localStorage.setItem("loggedInUser", newUser);
+
+      alert("Profil berhasil diperbarui!");
+      window.location.reload();
     }
   </script>
 </body>
