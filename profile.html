@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profil Pengguna</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
 </head>
 <body>
   <header>
     <img src="minecraft-logo.png" alt="Minecraft Logo" class="logo">
     <nav>
-      <a href="index.html">🏠 Beranda</a>
+      <a href="hub.html">🏠 Beranda</a>
       <button onclick="logout()">Keluar</button>
     </nav>
   </header>
@@ -19,13 +18,22 @@
   <main class="fade-in">
     <h2>Profil Saya</h2>
     <div class="profile-card">
-      <label><strong>Username:</strong></label>
-      <input type="text" id="profile-username">
+      <p><strong>Username:</strong> <span id="currentName"></span></p>
+      <p><strong>Email:</strong> <span id="currentEmail"></span></p>
 
-      <label><strong>Email:</strong></label>
-      <input type="email" id="profile-email">
+      <hr>
 
-      <button onclick="saveProfile()">Simpan Perubahan</button>
+      <label>Ganti Nama:</label>
+      <input type="text" id="newName" placeholder="Nama baru">
+      <button onclick="changeName()">Simpan Nama</button>
+
+      <label>Ganti Email:</label>
+      <input type="email" id="newEmail" placeholder="Email baru">
+      <button onclick="changeEmail()">Simpan Email</button>
+
+      <label>Ganti Password:</label>
+      <input type="password" id="newPassword" placeholder="Password baru">
+      <button onclick="changePassword()">Simpan Password</button>
     </div>
   </main>
 
@@ -34,47 +42,73 @@
   </footer>
 
   <script>
-    // Saat halaman dibuka
+    // Ambil data saat halaman dibuka
     document.addEventListener("DOMContentLoaded", () => {
+      let users = JSON.parse(localStorage.getItem("users")) || {};
       const user = localStorage.getItem("loggedInUser");
-      if (!user) {
+
+      if (!user || !users[user]) {
         alert("Kamu belum login!");
         window.location.href = "login_register.html";
         return;
       }
 
-      // Ambil data profil dari localStorage
-      const email = localStorage.getItem("email_" + user) || "";
-
-      document.getElementById("profile-username").value = user;
-      document.getElementById("profile-email").value = email;
+      document.getElementById("currentName").textContent = users[user].name;
+      document.getElementById("currentEmail").textContent = users[user].email || "-";
     });
 
-    // Simpan perubahan profil
-    function saveProfile() {
-      const newUser = document.getElementById("profile-username").value;
-      const newEmail = document.getElementById("profile-email").value;
-      const oldUser = localStorage.getItem("loggedInUser");
-
-      if (!newUser) {
-        alert("Username tidak boleh kosong!");
+    function changeName() {
+      const newName = document.getElementById("newName").value.trim();
+      if (!newName) {
+        alert("Nama tidak boleh kosong!");
         return;
       }
-
-      // Update data username
-      const oldPass = localStorage.getItem("user_" + oldUser);
-      localStorage.removeItem("user_" + oldUser);
-      localStorage.setItem("user_" + newUser, oldPass);
-
-      // Update email
-      localStorage.setItem("email_" + newUser, newEmail);
-
-      // Update loggedInUser
-      localStorage.setItem("loggedInUser", newUser);
-
-      alert("Profil berhasil diperbarui!");
-      window.location.reload();
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].name = newName;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Nama berhasil diubah!");
+        location.reload();
+      }
     }
+
+    function changeEmail() {
+      const newEmail = document.getElementById("newEmail").value.trim();
+      if (!newEmail) {
+        alert("Email tidak boleh kosong!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].email = newEmail;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Email berhasil diubah!");
+        location.reload();
+      }
+    }
+
+    function changePassword() {
+      const newPass = document.getElementById("newPassword").value.trim();
+      if (!newPass) {
+        alert("Password tidak boleh kosong!");
+        return;
+      }
+      if (newPass.length < 4) {
+        alert("Password minimal 4 karakter!");
+        return;
+      }
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (users[user]) {
+        users[user].password = newPass;
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Password berhasil diubah!");
+        location.reload();
+      }
+    }
+    
   </script>
 </body>
 </html>
