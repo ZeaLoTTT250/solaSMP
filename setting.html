@@ -106,7 +106,7 @@
     }
 
     .btn {
-      margin-top: 50px;
+      margin-top: 20px;
       width: 100%;
       background: #333;
       border: 2px solid #666;
@@ -133,6 +133,26 @@
       border-top: 2px solid #444;
       color: #777;
     }
+    .btn2 {
+      margin-top: 50px;
+      width: 100%;
+      background: #333;
+      border: 2px solid #666;
+      padding: 10px;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .btn2:hover {
+      background: #444;
+      border-color: #76ff03;
+      color: #76ff03;
+      box-shadow: 0 0 10px #76ff03;
+    }
   </style>
 </head>
 <body>
@@ -158,7 +178,7 @@
       <input type="password" id="newPassword" placeholder="Masukkan password baru">
 
       <button class="btn" onclick="saveSettings()">💾 Simpan Perubahan</button>
-      <a onclick="joinDiscord()" target="_blank" class="btn">💬 Join Discord</a>
+      <a onclick="joinDiscord()" target="_blank" class="btn2">💬 Join Discord</a>
     </div>
   </main>
 
