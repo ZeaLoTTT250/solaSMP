@@ -133,26 +133,6 @@
       border-top: 2px solid #444;
       color: #777;
     }
-    .btn2 {
-      margin-top: 100px;
-      width: 100%;
-      background: #333;
-      border: 2px solid #666;
-      padding: 10px;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .btn2:hover {
-      background: #444;
-      border-color: #76ff03;
-      color: #76ff03;
-      box-shadow: 0 0 10px #76ff03;
-    }
   </style>
 </head>
 <body>
@@ -160,6 +140,8 @@
     <h1>⚒️ Pengaturan</h1>
     <nav>
       <a href="hub.html">🏠 Beranda</a>
+      <button class="btn" onclick="saveSettings()">💾 Simpan Perubahan</button>
+      <a onclick="joinDiscord()" target="_blank" class="btn">💬 Join Discord</a>
       <button onclick="logout()">Keluar</button>
     </nav>
   </header>
@@ -177,8 +159,6 @@
       <label>Password Baru:</label>
       <input type="password" id="newPassword" placeholder="Masukkan password baru">
 
-      <button class="btn" onclick="saveSettings()">💾 Simpan Perubahan</button>
-      <a onclick="joinDiscord()" target="_blank" class="btn2">💬 Join Discord</a>
     </div>
   </main>
 
