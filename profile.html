@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Minecraft Logo" class="logo">
+    <img src="minecraft-logo.png" alt="Minecraft Logo" class="logo">
     <nav>
       <a href="index.html">🏠 Beranda</a>
       <button onclick="logout()">Keluar</button>
@@ -39,7 +39,7 @@
       const user = localStorage.getItem("loggedInUser");
       if (!user) {
         alert("Kamu belum login!");
-        window.location.href = "login.html";
+        window.location.href = "login_register.html";
         return;
       }
 
