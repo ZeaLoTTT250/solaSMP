@@ -2,100 +2,220 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>⚙️ Settings - solaSMP</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body onload="loadProfile()">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pengaturan Akun</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Trebuchet MS', sans-serif;
+      background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
+    header {
+      background: #202020;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px solid #444;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      color: #76ff03;
+      text-shadow: 0 0 8px #00ff55;
+      margin: 0;
+    }
+
+    nav button, nav a {
+      background: #333;
+      color: #fff;
+      border: 2px solid #555;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 10px;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    nav button:hover, nav a:hover {
+      background: #555;
+      border-color: #76ff03;
+      color: #76ff03;
+      box-shadow: 0 0 10px #76ff03;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      animation: slideUp 0.8s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .settings-card {
+      background: #2b2b2b;
+      border: 2px solid #666;
+      border-radius: 12px;
+      padding: 25px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: inset 0 0 10px #111, 0 0 15px #000;
+    }
+
+    .settings-card h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #76ff03;
+      text-shadow: 0 0 5px #00ff55;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #bbb;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 2px solid #555;
+      border-radius: 8px;
+      background: #1d1d1d;
+      color: #fff;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    input:focus {
+      border-color: #76ff03;
+      box-shadow: 0 0 8px #76ff03;
+    }
+
+    .btn {
+      margin-top: 20px;
+      width: 100%;
+      background: #333;
+      border: 2px solid #666;
+      padding: 10px;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #444;
+      border-color: #76ff03;
+      color: #76ff03;
+      box-shadow: 0 0 10px #76ff03;
+    }
+
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 12px;
+      border-top: 2px solid #444;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
   <header>
-    <h1>⚙️ Settings - solaSMP</h1>
+    <h1>⚒️ Pengaturan</h1>
+    <nav>
+      <a href="index.html">🏠 Beranda</a>
+      <button onclick="logout()">Keluar</button>
+    </nav>
   </header>
 
-  <main class="container">
-    <div class="card">
-      <h2>Informasi Akun</h2>
-      <form id="profileForm">
-        <label>🧑 Username</label>
-        <input type="text" id="username" required>
+  <main>
+    <div class="settings-card">
+      <h2>Kelola Akun</h2>
 
-        <label>📧 Email</label>
-        <input type="email" id="email" required>
+      <label>Nama Baru:</label>
+      <input type="text" id="newName" placeholder="Masukkan nama baru">
 
-        <label>🔑 Password</label>
-        <input type="password" id="password" required>
+      <label>Email Baru:</label>
+      <input type="email" id="newEmail" placeholder="Masukkan email baru">
 
-        <button type="submit">💾 Simpan Perubahan</button>
-        <button type="button" onclick="logout()">🚪 Logout</button>
-      </form>
+      <label>Password Baru:</label>
+      <input type="password" id="newPassword" placeholder="Masukkan password baru">
+
+      <button class="btn" onclick="saveSettings()">💾 Simpan Perubahan</button>
+      <a href="https://discord.gg/yourinvite" target="_blank" class="btn">💬 Join Discord</a>
     </div>
   </main>
 
-  <button onclick="hapusSemuaData()">Hapus Semua Data</button>
-
-<script>
-function hapusSemuaData() {
-  if (confirm("Apakah kamu yakin ingin menghapus semua data?")) {
-    localStorage.clear();
-    alert("Semua data berhasil dihapus!");
-    window.location.href = "register.html";
-  }
-}
-</script>
-
   <footer>
-    <p>© 2025 Server solaSMP - Dibuat oleh @ZeaLoTT250</p>
+    <p>&copy; 2025 Server Minecraft. Semua Hak Dilindungi.</p>
   </footer>
 
   <script>
-    // Tampilkan data user di form
-    function loadProfile() {
-      const currentUser = localStorage.getItem("currentUser");
-      if (!currentUser) {
-        alert("Anda harus login dulu!");
-        window.location.href = "login.html";
+    document.addEventListener("DOMContentLoaded", () => {
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+
+      if (!user || !users[user]) {
+        alert("Kamu belum login!");
+        window.location.href = "login_register.html";
         return;
       }
 
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      const user = users.find(u => u.email === currentUser);
-
-      if (user) {
-        document.getElementById("username").value = user.username;
-        document.getElementById("email").value = user.email;
-        document.getElementById("password").value = user.password;
-      }
-    }
-
-    // Simpan perubahan profil
-    document.getElementById("profileForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const newUsername = document.getElementById("username").value;
-      const newEmail = document.getElementById("email").value;
-      const newPassword = document.getElementById("password").value;
-
-      let users = JSON.parse(localStorage.getItem("users")) || [];
-      const currentUser = localStorage.getItem("currentUser");
-
-      users = users.map(u => {
-        if (u.email === currentUser) {
-          return { username: newUsername, email: newEmail, password: newPassword };
-        }
-        return u;
-      });
-
-      // Update ke localStorage
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("currentUser", newEmail);
-
-      alert("Perubahan berhasil disimpan!");
-      loadProfile(); // reload data terbaru
+      document.getElementById("newName").value = users[user].name;
+      document.getElementById("newEmail").value = users[user].email || "";
     });
 
-    // Logout
-    function logout() {
-      localStorage.removeItem("currentUser");
-      window.location.href = "login.html";
+    function saveSettings() {
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      const user = localStorage.getItem("loggedInUser");
+      if (!user || !users[user]) return;
+
+      const newName = document.getElementById("newName").value.trim();
+      const newEmail = document.getElementById("newEmail").value.trim();
+      const newPass = document.getElementById("newPassword").value.trim();
+
+      if (!newName) {
+        alert("Nama tidak boleh kosong!");
+        return;
+      }
+
+      // Simpan data
+      users[user].name = newName;
+      if (newEmail) users[user].email = newEmail;
+      if (newPass) {
+        if (newPass.length < 4) {
+          alert("Password minimal 4 karakter!");
+          return;
+        }
+        users[user].password = newPass;
+      }
+
+      // Update username jika berubah
+      if (newName !== user) {
+        users[newName] = users[user];
+        delete users[user];
+        localStorage.setItem("loggedInUser", newName);
+      }
+
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Perubahan berhasil disimpan!");
+      window.location.reload();
     }
   </script>
 </body>
